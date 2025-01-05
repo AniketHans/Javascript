@@ -102,4 +102,28 @@
      1. Arrays // object
      2. Objects // object
      3. Functions // function object
-4.
+
+### Stack and Heap memories
+
+1. Primitive types use **stack** memory and Non-primitive types use **heap** memory.
+2. Stack memory returns the copy of the values assigned to a variable. Heap memory returns the reference of the original value.
+
+### String Interpolation in JS
+
+1. We can use `` to inject variables in strings. This is mostly used in modern days to concatinate different variables as string.
+2. Example
+   ```javascript
+   const name = "AH";
+   console.log(`Hello!! ${name}`); // Hello!! AH
+   ```
+
+### String
+
+1. You can define string in the following ways:
+   1. `const s1 = "Hello"`
+   2. `const s2 = new String("Hello")`
+
+### Math.random
+
+1. For getting the random values between min and max, follow the following formula
+   `Math.floor(Math.random() * (max - min + 1)) + min`
