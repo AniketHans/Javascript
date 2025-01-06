@@ -127,3 +127,41 @@
 
 1. For getting the random values between min and max, follow the following formula
    `Math.floor(Math.random() * (max - min + 1)) + min`
+
+### Arrays
+
+1. Arrays can contain multiple types of elements in it at the same time.
+   1. For example: `const arr = [1,2,true,"AH"]`
+2. Javascript arrays are resizable.
+3. JS array copy operations creates **shallow copies**.
+
+   1. It means in the following code, both arr1 and arr2 are pointing to the same array reference.
+
+   ```javascript
+   const arr1 = [1, 2, 3, 4];
+   const arr2 = arr1; //Shallow copy. Both arr1 and arr2 are pointing to the same array reference
+   arr2[2] = 5;
+   console.log(arr1[2]); // 5
+   ```
+
+4. Spread operator (...) is used to spread all the elements of an array.
+   ```javascript
+   const arr1 = [1, 2, 3];
+   console.log(...arr1); // 1 2 3
+   ```
+
+### Objects
+
+1. We can declare objects in 2 ways:
+   1. Literals ( `const obj = {}` )
+   2. Constructors ( `const obj = Object.create()` or `const obj = new Object()` )
+2. Singleton object is created in case when created using constructors while literals donot create any singleton object.
+3. Objects are made up of key value pairs. All the keys are by default considered as string type.
+4. We can access values in objects in 2 ways:
+   1. `obj.<keyname>`
+   2. `obj["<keyname>"]`
+5. We can freeze any object so nobody can change it. If anybody tries to change it, the changes will not be propogated to the object.
+   1. `Object.freeze(<object>)`
+6. We can add any function as value to a key in objects. If you want to access any key inside the function inside an object, you need to use `this`.
+   1. Note: If you want to use `this` in a function inside an object, make sure the function is not an arrow function because **arrow functions dont have the access to `this`**
+7.
