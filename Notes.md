@@ -164,4 +164,18 @@
    1. `Object.freeze(<object>)`
 6. We can add any function as value to a key in objects. If you want to access any key inside the function inside an object, you need to use `this`.
    1. Note: If you want to use `this` in a function inside an object, make sure the function is not an arrow function because **arrow functions dont have the access to `this`**
-7.
+7. We can destruture keys and values from an object
+
+   ```javascript
+   const obj = {
+     name: "AH",
+     age: 25,
+     isLoggedIn: true,
+     sessions: ["session1", "session2"],
+   };
+
+   const { name, age, sessions: sessionIds } = obj;
+   console.log(name); // AH
+   console.log(age); // 25
+   console.log(sessionIds); // [ 'session1', 'session2' ]
+   ```

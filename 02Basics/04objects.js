@@ -34,3 +34,17 @@ console.log(obj5); // { '1': 'a', '2': 'b', '3': 'c', '4': 'd' }
 console.log(Object.keys(obj5)); // [ '1', '2', '3', '4' ]
 console.log(Object.values(obj5)); // [ 'a', 'b', 'c', 'd' ]
 console.log(Object.entries(obj5)); // [ [ '1', 'a' ], [ '2', 'b' ], [ '3', 'c' ], [ '4', 'd' ] ]
+
+// **********************************************************************************
+// Destructuring values from objects
+const obj6 = {
+  name: "AH",
+  age: 25,
+  isLoggedIn: true,
+  sessions: ["session1", "session2"],
+};
+
+const { name, age, sessions: sessionIds } = obj6;
+console.log(name); // AH
+console.log(age); // 25
+console.log(sessionIds); // [ 'session1', 'session2' ]
