@@ -4,10 +4,24 @@
 
 1. Variables declared as `const` cannot be reassigned a new value. It means you cannot assign a new value to the const variable.
 2. `let` vs `var`
-   1. Variables declared with `var` have a scope through out the project. It means if a variable is declared with `var` in a file, say file1, of the project then it can be accessed in any file of the project, say files 2,3... Thus, scope of the variable is through out the project. `var` varaibles are **block scoped**
-   2. Variables declared with `let` are properly scoped. They can be used only with the scope [`{}`] they are declared. The `let` variables are **functional scoped**.
+   1. Variables declared with `var` have a scope through out the file. It means if a variable is declared with `var` in a file, will be available throughout the file. It means even if the variable is declared inside any loop, any conditional statement or any scope `{}`, its value can be accessed throughout the file. Even after its scope should be over. Variables defined using `var` have **Global Scope**
+   2. Variables declared with `let` are properly scoped. They can be used only with the scope [`{}`] they are declared. They have **Block scope**.
 3. We can also define a variable without using any var, let or const. But this way of declaring variable should not be used.
-4. All the variables have default `undefined` value if not initialized or defined.
+4. All the variables have default `undefined` value if not initialized or defined but declared.
+
+### Scopes in js
+
+1. There are 3 types of scopes in JS after the ES6 implementation:
+   1. **Block Scope**
+      1. Variables declared inside a `{ }` block cannot be accessed from outside the block.
+      2. This is not applicable for variables declared using `var` inside a block.
+   2. **Function Scope**
+      1. Variables declared within a JavaScript function, are LOCAL to the function
+      2. Local variables have Function Scope. They can only be accessed from within the function.
+   3. **Global Scope**
+      1. Global variables can be accessed from anywhere in a JavaScript program
+      2. Variables declared with `var`, `let` and `const` are quite similar when declared outside a block.
+2. Before ES6 implementation, JS only has Function and Global scope.
 
 ### use strict
 
@@ -179,3 +193,17 @@
    console.log(age); // 25
    console.log(sessionIds); // [ 'session1', 'session2' ]
    ```
+
+### Functions
+
+1. Function Parameters are defined at the time of function definition.
+2. Function Arguments are values that are passed to the function at the time of calling.
+3. ```javascript
+   function greet(name, age = 25) {
+     console.log(`Hello! Mr.${name} of age ${age}`);
+   }
+   greet("AH", 26); // Hello! Mr.AH of age 26
+   greet(); // Hello! Mr.undefined of age 25
+   //Default values is taken in the above case when no argument is passed
+   ```
+4.
