@@ -207,6 +207,90 @@
    //Default values is taken in the above case when no argument is passed
    ```
 4. We have multiple methods of declaring and defining functions
+
    1. Normal function declaration
+
+      ```javascript
+      function func1() {
+        // functionality
+      }
+      ```
+
    2. Expression function declaration
+
+      ```javascript
+      const func1 = function () {
+        // functionality
+      };
+      ```
+
    3. Arrow function declaration
+
+      ```javascript
+      const func1 = () => {
+        // functionality
+      };
+      ```
+
+### this
+
+1. `this` refers to the context (variables and their values) of the scope where it is being currently used.
+   ```javascript
+   const userdata = {
+     username: "AH",
+     age: 29,
+     greet: function () {
+       console.log(`Hello!! ${this.username}`); // Here we can access any key inside the object using this keyword.
+     },
+   };
+   // In the above case, the current context for this is the keys inside the scope of the object userdata.
+   ```
+2. In node env, the `this` will refer to empty object/context.
+   ```javascript
+   console.log(this); // {}
+   ```
+3. In browser, the `this` will refer to window object. In browser, we have window object as the Global object. This window object helps in capturing the all the events occuring on window.
+   ```javascript
+   // In browser console
+   console.log(this); // Window {window: Window,...}
+   ```
+4. Arrow functions dont have access to this, thus they dont have access to current context.
+
+   ```javascript
+   const obj = {
+     key1: "value1",
+     key2: "value2",
+
+     func1: function () {
+       console.log(this); // {key1: 'value1', key2: 'value2', func1: [Function: func1], func2: [Function: func2]}
+       console.log(this.key1); // value1
+       console.log(this.key2); // value2
+     },
+     func2: () => {
+       //arrow function
+       //Arrow functions dont have access to this, thus they cant access the current context.
+       console.log(this); // {}
+       console.log(this.key1); // undefined
+       console.log(this.key2); // undefined
+     },
+   };
+
+   obj.func1();
+   obj.func2();
+   ```
+
+### Arrow functions Syntax
+
+1. Normal with return
+
+   ```javascript
+   const func = (value1, value2) => {
+     return value1 + value2;
+   };
+   ```
+
+2. Implicit return, this is written in one line and the expression is returned by default
+
+   ```javascript
+   const func = (value1, value2) => value1 + value2;
+   ```
