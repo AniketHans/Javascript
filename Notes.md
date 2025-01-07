@@ -206,4 +206,7 @@
    greet(); // Hello! Mr.undefined of age 25
    //Default values is taken in the above case when no argument is passed
    ```
-4.
+4. We have multiple methods of declaring and defining functions
+   1. Normal function declaration
+   2. Expression function declaration
+   3. Arrow function declaration
