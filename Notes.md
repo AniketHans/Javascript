@@ -309,3 +309,53 @@
 3. Note: The semicolon(;) at the end of IIFE is must as the IIFE itself don't know where to end the context. Thus if you omit the `;` and if you try to invoke another IIFE then it will start throwing error.
 4. Usecase:
    1. Sometimes the global scope has a lot of pollution in it, so to avoid the global scope pollution, we ran the IIFE
+
+### Javascript code execution and call stack
+
+1. Javascript Execution Context
+   1. The way in which Javascript executes your code.  
+      ![Javascript Execution Context](./resources/images/JS%20execution%20context.png)
+2. Whenever our code is submitted to JS, a Global Execution Context is formed. This global execution context is refered by `this` variable. The Global Execution context is based on the environment in which the code is executed. It will different for Browser env, Nodejs env etc. In browser, the Global EC or `this` points to the `window` object.
+3. Note: Javascript is a single threaded language.
+4. There are 2 types of execution contexts
+   1. Global Execution Context
+   2. Function Execution Context
+   3. Eval Execution Context
+5. Javascript code execution
+
+   1. The code execution takes place in 2 phases:
+      1. Memory Creation phase (The memory for all the variables, functions etc is allocated in this phase)
+      2. Execution Phase
+   2. Consider the following code:
+
+      ```javascript
+      let val1 = 10
+      let val2 = 5
+      function addNum( value1, value2 ){
+      let total = value1 + value 2
+      return total
+      }
+
+      let result1 = addNum( val1, val2 )
+      let result2 = addNum( 10, 2)
+      ```
+
+      1. For the above code execution, first Global EC (aka Global Environment) is allocated to `this`.
+      2. Then we have the Memory Creation Phase. Here the variables are allocated memory without putting the actual values in them. For example, the memory space for val1 and val2 will be allocated with undefined as the value in them. The functions are also assigned memory address with their definition in them.  
+         ![Memory Creation Phase](./resources/images/Memory%20creation%20phase.png)
+      3. Then, we have the Execution phase:  
+         ![Execution Phase](./resources/images/Execution%20Phase.png)
+         1. Here, first the variables will be assigned the actual values to them.
+         2. Then, it dont have to do anything with the function definition of addNum()
+         3. Then, we have the variable result1, whose value is derived from addNum(val1,val2) call. Thus, this function call will have its own execution context. This new execution context will have its own variable env and execution thread. It means the new execution context will have its own memory creation phase and execution phase. After the computation happened in the execution context for total ( val1 + val2 ), the total value is returned to the Global EC.
+         4. Same thing will happen for result2.
+
+6. Call Stacks
+   1. It is the stack maintained for function calls.
+   2. Once the code comes for execution at first, the Global Execution context is pushed to the call stack.  
+      ![](./resources/images/Call%20stack%201.png)
+   3. Then, if we have function call in the code, then the function reference is pushed to the stack. Say func1() comes for the execution.  
+      ![](./resources/images/Call%20stack%202.png)
+   4. Once the execution of the function at the stack top is completed, it is popped from the stack  
+      ![](./resources/images/Call%20stack%203.png)
+   5. Same thing happens when we have nested function. The functions are pushed to the call stack based on the order they are called and are popped out of call stack in LIFO (Last In First Out Manner).
