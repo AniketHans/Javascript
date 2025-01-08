@@ -359,3 +359,58 @@
    4. Once the execution of the function at the stack top is completed, it is popped from the stack  
       ![](./resources/images/Call%20stack%203.png)
    5. Same thing happens when we have nested function. The functions are pushed to the call stack based on the order they are called and are popped out of call stack in LIFO (Last In First Out Manner).
+
+### Falsy values
+
+1. Falsy values are values that are considered `false` if put in a condition
+2. We have the following falsy values in JS:
+   1. false
+   2. 0
+   3. -0
+   4. 0n (BigInt)
+   5. ""
+   6. null
+   7. undefined
+   8. NaN
+3. All the other values except the above values are considered truthy values.
+4. Even `[]` and `{}` and Empty function (`function(){}`) are considered truthy values
+
+   ```javascript
+   const arr = [];
+   if (arr) {
+     console.log("Inside if");
+   }
+   // Output --> Inside if, as [] is a truthy value even though the array is empty.
+   ```
+
+5. For an array, we need to check by its length if its empty or not, `arr.length === 0`.
+6. For objects, we can check by its keys length, `Object.keys(<object name>).length === 0`
+
+### Nullish Coalescing Operator (??)
+
+1. This only works with `undefined` and `null`.
+2. This operator does a safety check for `undefined` and `null` before assigning value to the variable.
+3. Code example 1:
+   ```javascript
+   let val1;
+   val1 = 5 ?? 10; // val1 <-- 5, as value to the left of ?? operator is not amoung undefined and null.
+   ```
+4. Code example 2:
+   ```javascript
+   let val1;
+   val1 = null ?? 10; // val1 <-- 10
+   ```
+5. Code example 3:
+   ```javascript
+   let val1;
+   val1 = undefined ?? 20; // val1 <-- 20
+   ```
+6. Code example 3:
+   ```javascript
+   let val1;
+   val1 = undefined ?? 20 ?? 40; // val1 <-- 20
+   ```
+
+### Ternary Operator
+
+1. Syntax: `condition ? <code if condition is true> : <code if condition is false>`
