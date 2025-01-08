@@ -294,3 +294,18 @@
    ```javascript
    const func = (value1, value2) => value1 + value2;
    ```
+
+### IIFE (Immediately Invoked Function Expression)
+
+1. This is used to immediately invoke function call after the definition
+2. Syntax:
+
+   ```javascript
+   (function one() {
+     console.log("DB Connected");
+   })(); //Here we are immediately invoking the function after the definition.
+   ```
+
+3. Note: The semicolon(;) at the end of IIFE is must as the IIFE itself don't know where to end the context. Thus if you omit the `;` and if you try to invoke another IIFE then it will start throwing error.
+4. Usecase:
+   1. Sometimes the global scope has a lot of pollution in it, so to avoid the global scope pollution, we ran the IIFE
