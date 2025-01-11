@@ -414,3 +414,71 @@
 ### Ternary Operator
 
 1. Syntax: `condition ? <code if condition is true> : <code if condition is false>`
+
+### Map
+
+1. The Map object holds key-value pairs and remembers the original insertion order of the keys.
+2. **Maps are not iteratable and Objects also are not iteratable**.
+
+   ```javascript
+   const m = new Map();
+   m.set("a", 1);
+   m.set("b", 2);
+
+   console.log(m); // Map(2) { 'a' => 1, 'b' => 2 }
+   ```
+
+### Array specific loops
+
+1. for of loop ( it works directly on values)
+
+   ```javascript
+   //Syntax
+   /*
+      for (const val of <iterator>){
+         // code
+      }
+   */
+   const arr = [1, 2, 3, 4, 5];
+   for (const val of arr) {
+     console.log(val);
+   }
+
+   //Note: this loop will only on iterables, thus it will not work on Objects
+   ```
+
+2. for in loop ( it works directly on keys)
+
+   ```javascript
+   //Syntax
+   /*
+      for (const <index> in <object>){
+         // code
+      }
+   */
+   const arr = ["a", "b", "c", "d"];
+   for (const val in arr) {
+     console.log(val);
+   }
+   ```
+
+3. forEach()
+
+   ```javascript
+   //Syntax
+   /*
+      <array/object>.forEach(<callback function>)
+   */
+   const coding = ["js", "py", "java", "rb"];
+   coding.forEach((lang, index) => {
+     // We have used an Arrow function as callback function here
+     console.log(`The coding language at index ${index} is ${lang}`);
+   });
+   /**
+    * The coding language at index 0 is js
+    * The coding language at index 1 is py
+    * The coding language at index 2 is java
+    * The coding language at index 3 is rb
+    */
+   // The callback recieves value, index and array also as parameters
+   ```
