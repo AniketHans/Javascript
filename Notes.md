@@ -428,7 +428,7 @@
    console.log(m); // Map(2) { 'a' => 1, 'b' => 2 }
    ```
 
-### Array specific loops
+### Higher Order loops
 
 1. for of loop ( it works directly on values)
 
@@ -462,7 +462,7 @@
    }
    ```
 
-3. forEach()
+3. forEach() (it does not return any value)
 
    ```javascript
    //Syntax
@@ -481,4 +481,42 @@
     * The coding language at index 3 is rb
     */
    // The callback recieves value, index and array also as parameters
+   ```
+
+4. filter (it returns values,filter is used to filter out values based on some condition)
+
+   ```javascript
+   const nums = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+   const values1 = nums.filter((val) => {
+     return val > 4;
+   });
+   console.log(values1); // [ 5, 6, 7, 8, 9, 10 ]
+   ```
+
+5. map (map() is used to perform some operation on the values and then return them)
+
+   ```javascript
+   const nums = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+   const values1 = nums.map((val) => val * 2);
+   console.log(values1); // [ 2,  4,  6,  8, 10, 12, 14, 16, 18, 20 ]
+   ```
+
+6. reduce (It uses accumulator which can be used to give sum of all the elements etc)
+
+   ```javascript
+   const nums = [1, 2, 3, 4, 5];
+   const initVal = 0;
+   const sum1 = nums.reduce(function (acc, curr) {
+     console.log(`--->, ${acc}, ${curr}`);
+     return acc + curr;
+   }, initVal);
+   console.log(sum1);
+   /**
+    * --->, 0, 1
+    * --->, 1, 2
+    * --->, 3, 3
+    * --->, 6, 4
+    * --->, 10, 5
+    * 15
+    */
    ```
