@@ -520,3 +520,202 @@
     * 15
     */
    ```
+
+### DOM
+
+1. DOM stands for Documnet Object Model
+2. We have the `document` object inside the `window` object.
+3. For accessing the `document`, use `window.document` or `document`
+4. DOM tells how the different elements of our webpage are organized. It forms a tree structure of the webpage.
+5. Consider the following html code
+
+   ```html
+   <!DOCTYPE html>
+   <html lang="en">
+     <head>
+       <meta charset="UTF-8" />
+
+       <title>DOM learning</title>
+     </head>
+     <body class="bg-black">
+       <div>
+         <h1 class="heading">DOM learning</h1>
+         <p>Lorem ipsum dolor sit amet.</p>
+       </div>
+     </body>
+   </html>
+   ```
+
+   Its DOM structure would be:  
+   ![DOM Structure of above code](./resources/images/DOM%20structure.png)
+   Note: in above image html will also have an attribute called lang. We forgot to add it.
+
+6. DOM can be studied to know about a webpage's structure and can be further used to access the elements of a webpage and alter them by selecting the element to be changed by using the DOM selectors.
+
+### DOM Selectors
+
+1. **`document.getElementById(<id>)`**
+
+   1. This element is used to select an html element on our webpage by its id.
+   2. Suppose we have following `<h1 id="title" class="heading"> What's up!!! </h1>` somewhere in our webpage and we want to select that, then we can use `document.getElementById("title")` to select the heading.
+
+   ```javascript
+   console.log(document.getElementById("title")); //<h1 id="title" class="heading"> What's up!!! </h1>
+   ```
+
+   3. It returns the whole element with its attributes and values.
+   4. We can further get deep down into the object:
+
+      ```javascript
+      //html element in our webpage
+      // <h1 id="title" class="heading"> What's up!!! </h1>
+
+      // accessing different attributes
+      document.getElementById("title").id; // title
+      document.getElementById("title").className; // heading
+      document.getElementById("title").getAttribute("id"); // title
+      document.getElementById("title").getAttribute("class"); // heading
+
+      //setting the attributes usinf setAttribute()
+      document.getElementById("title").setAttribute("class", "test"); // <h1 id="title" class="test"> What's up!!! </h1>
+
+      //Adding css styles
+      // Syntax: document.getElementById("title").style.<css-attribute> = <value>
+      const title = document.getElementById("title");
+      title.style.backgroundColor = "red";
+      title.style.padding = "15px";
+
+      // Fetching the content
+      title.textContent; // What's up!!!
+      title.innerHTML; // What's up!!!
+      title.innerText; // What's up!!!
+      ```
+
+2. **`document.getElementsByClassName(<classname>)`**
+
+   1. This selector can be used to select any html element by using its class. It returns an HTMLCollection containing all the elements with the given className.
+   2. Suppose, we have `<h1 id="title" class="heading"> What's up!!! </h1>`. We can select this element using `document.getElementsByClassName('heading')`.
+   3. ```javascript
+      // Suppose we have the following html body code
+      /*    
+         <h1 id = "heading1"> Haha!! </h1>
+         <h2> Hello </h2>
+         <h2 class = "greet"> Hi </h2>
+         <h2> Hola </h2>
+         <h2> Amigos </h2>
+         <input type = "password"/>
+         <ul>
+            <li class="list-item">one</li>
+            <li class="list-item">two</li>
+            <li class="list-item">three</li>
+            <li class="list-item">four</li>
+         </ul>
+         */
+
+      // getting all the elements with className "list-item"
+      document.getElementsByClassName("list-item"); // HTMLCollection(4) [li.list-item, li.list-item, li.list-item, li.list-item];
+
+      //converting to Array from HTMLCollection
+      const tempClassList = document.getElementsByClassName("list-item");
+      Array.from(tempClassList); // [li.list-item, li.list-item, li.list-item, li.list-item]
+      ```
+
+3. **`document.querySelector(<selector>)`**
+
+   1. This is used to select any element from the webpage. The first element matching the asked one is retrieved.
+   2. This returns only one (the first) value even if there are multiple.
+   3. Selecting based on html element, document.querySelector('h1'), this will return the first `<h1>` from the webpage.
+   4. Selecting based on id, use querySelector(`#<id>`)
+   5. Selecting based on class, use querySelector(`.<class>`)
+   6. We can use all types of css selectors in querySelector method.
+
+   ```javascript
+   // Suppose we have the following html body code
+   /*    
+         <h1 id = "heading1"> Haha!! </h1>
+         <h2> Hello </h2>
+         <h2 class = "greet"> Hi </h2>
+         <h2> Hola </h2>
+         <h2> Amigos </h2>
+         <input type = "password"/>
+         <ul>
+            <li class="list-item">one</li>
+            <li class="list-item">two</li>
+            <li class="list-item">three</li>
+            <li class="list-item">four</li>
+         </ul>
+      */
+   // selecting html element
+   document.querySelector("h2"); // <h2> Hello </h2>
+
+   // selecting based on id
+   document.querySelector("#heading1"); // <h1 id = "heading1"> Haha!! </h1>
+
+   // selecting based on classname
+   document.querySelector(".greet"); // <h2 class = "greet"> Hi </h2>
+
+   // selecting the input of type password
+   document.querySelector('input[type="password"]'); // <input type = "password"/>
+
+   // selecting the first li from a ul
+   document.querySelector("ul").querySelector("li"); // <li class="list-item">one</li>
+   //changing the background color of the first list element.
+   document.querySelector("ul").querySelector("li").style.backgroundColor =
+     "green";
+   ```
+
+4. **`document.querySelectorAll()`**
+
+   1. It is similar to querySelector() but it returns all the matching elements as a Nodelist.
+   2. ```javascript
+      // Suppose we have the following html body code
+      /*    
+         <h1 id = "heading1"> Haha!! </h1>
+         <h2> Hello </h2>
+         <h2 class = "greet"> Hi </h2>
+         <h2> Hola </h2>
+         <h2> Amigos </h2>
+         <input type = "password"/>
+         <ul>
+            <li class="list-item">one</li>
+            <li class="list-item">two</li>
+            <li class="list-item">three</li>
+            <li class="list-item">four</li>
+         </ul>
+      */
+
+      // selecting all the li elements
+      document.querySelectorAll("li"); // NodeList(4) [li, li, li, li]
+
+      // accessing the first element
+      const tempLiList = document.querySelectorAll("li");
+      tempLiList[0]; // <li class="list-item">one</li>
+      tempLiList[0].style.color = "green";
+
+      // accessing all the elements
+      tempLiList.forEach((item) => {
+        item.style.color = "red";
+      });
+      ```
+
+### innerText vs textContent vs innerHTML
+
+1. innerText only returns the text visible on the webpage. It does not return the text which is hidden may be due to some CSS.
+2. textContent returns the whole text written inside the element.
+3. innerHTML also returns the underlying html used in the text retrieved.
+4. Thus, innerTexta and textContent does not support adding html tags but innerHTML does support.
+5. Eg:
+
+   ```javascript
+   // Consider the following html
+   // <h1 id = "heading"> Hello!! How <span style = "display:none;"> are you ? </span> </h1>
+   const h = documnet.getElementById("heading");
+   h.innerText; // Hello!! How
+   h.textContent; // Hello!! How are you ?
+   h.innerHTML; // Hello!! How <span style = "display:none;"> are you ? </span>
+
+   /*
+      Here above the `are you ?` text is hidden from the webpage due to the diplay:none class thus innerText does not get that value but textContent does.
+      innerHTML returned the underneath html used in the retrieved value.
+   */
+   ```
