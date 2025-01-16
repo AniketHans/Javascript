@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Parent | Child</title>
+</head>
+
+<body>
+    <div class="parent">
+        <div class="day">Monday</div>
+        <div class="day">Tuesday</div>
+        <div class="day">Wednesday</div>
+        <div class="day">Thursday</div>
+    </div>
+    <h1 class="heading">Hello</h1>
+
+    <div class="class1">
+        <h1>LOL</h1>
+        <p>What's up!!!</p>
+    </div>
+</body>
+<script>
+    const p = document.querySelector(".parent");
+    console.log(p.children);
+    const h = document.querySelector(".heading");
+    console.log(h.children);
+    const c = document.querySelector(".class1");
+    console.log(c.children);
+    for (let i = 0; i < p.children.length; i++) {
+        console.log(p.children[i].innerHTML);
+    }
+
+    console.log("--->", p.firstElementChild);
+
+    const dayOne = document.querySelector(".day");
+    console.log(dayOne.parentElement);
+    console.log(dayOne.nextElementSibling);
+
+    console.log(p.childNodes);
+</script>
+
+</html>

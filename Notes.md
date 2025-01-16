@@ -719,3 +719,153 @@
       innerHTML returned the underneath html used in the retrieved value.
    */
    ```
+
+### Fetching the children and parent of an element
+
+1. `children` property can be used to retrieve the children of an element. It returns an HTMLCollection of children
+
+   ```javascript
+   // Consider the following html
+   /*
+      <div class="parent">
+         <div class="day">Monday</div>
+         <div class="day">Tuesday</div>
+         <div class="day">Wednesday</div>
+         <div class="day">Thursday</div>
+      </div>
+   
+      <h1 class="heading">Hello</h1>
+   
+      <div class="class1">
+         <h1>LOL</h1>
+         <p>What's up!!!</p>
+      </div>
+   */
+   // parent div has 4 day children
+   const p = document.querySelector(".parent");
+   console.log(p.children); // HTMLCollection(4) [div.day, div.day, div.day, div.day]
+
+   // heading dont have any children
+   const h = document.querySelector(".heading"); // HTMLCollection []
+   console.log(h.children);
+
+   const c = document.querySelector(".class1");
+   console.log(c.children); // HTMLCollection(2) [h1, p]
+
+   //Looping over children
+   for (let i = 0; i < p.children.length; i++) {
+     console.log(p.children[i].innerHTML);
+   }
+   /* Output:-
+      Monday
+      Tuesday
+      Wednesday
+      Thursday
+   */
+   ```
+
+2. `firstElementChild` and `lastElementChild` properties returns the first and last child of the parent respectively.
+
+   ```javascript
+   // Consider the following html
+   /*
+      <div class="parent">
+         <div class="day">Monday</div>
+         <div class="day">Tuesday</div>
+         <div class="day">Wednesday</div>
+         <div class="day">Thursday</div>
+      </div>
+   */
+   const p = document.querySelector(".parent");
+   console.log(p.firstElementChild); // <div class="day">Monday</div>
+   console.log(p.lastElementChild); // <div class="day">Thursday</div>
+   ```
+
+3. `parentElement` property can be used to go to the parent of the element.
+
+   ```javascript
+   // Consider the following html
+   /*
+      <div class="parent">
+         <div class="day">Monday</div>
+         <div class="day">Tuesday</div>
+         <div class="day">Wednesday</div>
+         <div class="day">Thursday</div>
+      </div>
+   */
+   const dayOne = document.querySelector(".day");
+   console.log(dayOne); // <div class="day">Monday</div>
+   console.log(dayOne.parentElement);
+   //Output
+   /*
+      <div class="parent">
+         <div class="day">Monday</div>
+         <div class="day">Tuesday</div>
+         <div class="day">Wednesday</div>
+         <div class="day">Thursday</div>
+      </div>
+   */
+   ```
+
+4. `nextElementSibling` can be used to go to the next sibling of the current Element.
+   ```javascript
+   // Consider the following html
+   /*
+      <div class="parent">
+         <div class="day">Monday</div>
+         <div class="day">Tuesday</div>
+         <div class="day">Wednesday</div>
+         <div class="day">Thursday</div>
+      </div>
+   */
+   const dayOne = document.querySelector(".day");
+   console.log(dayOne); // <div class="day">Monday</div>
+   console.log(dayOne.nextElementSibling); // <div class="day">Tuesday</div>
+   ```
+5. `childNodes` property returns the NodeList of nodes that are under the DOM tree stucture of give element.
+   ```javascript
+   // Consider the following html
+   /*
+      <div class="parent">
+         <div class="day">Monday</div>
+         <div class="day">Tuesday</div>
+         <div class="day">Wednesday</div>
+         <div class="day">Thursday</div>
+      </div>
+   */
+   const p = document.querySelector(".parent");
+   console.log(p.childNodes);
+   //Output
+   /*
+      NodeList(9) [text, div.day, text, div.day, text, div.day, text, div.day, text]
+      0 : text             ( This is the line break after line <div class="parent"> )
+      1 : div.day          (<div class="day">Monday</div>)
+      2 : text             ( This is the line break after line <div class="day">Monday</div> )
+      3 : div.day          (<div class="day">Tuesday</div>)
+      4 : text             ( This is the line break after line<div class="day">Tuesday</div> )
+      5 : div.day          (<div class="day">Wednesday</div>)
+      6 : text             ( This is the line break after line <div class="day">Wednesday</div> )
+      7 : div.day          (<div class="day">Thursday</div>)
+      8 : text             ( This is the line break after line <div class="day">Thursday</div> )
+      length : 9
+   */
+   ```
+
+### Creating Element
+
+1. `createElement(<element>)` is used to create an element.
+
+   ```javascript
+   const div = document.createElement("div");
+   console.log(div); // <div></div>
+   div.className = "main";
+   div.id = Math.round(Math.random() * 10 + 1); // <div class="main" id="10"></div>
+   div.setAttribute("customAttribute", "value1"); // <div class="main" id="2" customattribute="value1"></div>
+   div.style.backgroundColor = "yellow";
+   div.innerText = "Hola Amigos!!!"; // <div class="main" id="9" customattribute="value1" style="background-color: yellow;">Hola Amigos!!!</div>
+
+   document.body.appendChild(div);
+   ```
+
+2. `setAttribute()` can be used to set predefined and custom attributes. `setAttribute` is the the prefered method to set the attributes as `document.querySelector(".element").attribute1 = value1` first fetches the attribute1's value and then overwrites it but `document.querySelector(".element").setAttribute("attribute1","value1")` directly puts the value for attribute1 thus saving a trip of first fetch the attributes value and then overwrite it.
+3. `<parent>.appendChild()` method is used to append any child to the parent element.
