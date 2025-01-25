@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Adding and Removing elements in DOM</title>
+</head>
+
+<body>
+    <ul class="language">
+        <li>Javascript</li>
+    </ul>
+</body>
+<script>
+    function addLanguage(language) {
+        const li = document.createElement("li");
+        li.innerHTML = `${language}`; //Use of innerHTML will lead to traversing the whole DOM tree and then inserting the text.
+        // In large projects, this approach is a bit non-optimised.
+        document.querySelector(".language").appendChild(li);
+    }
+    addLanguage("Python");
+    addLanguage("C++");
+
+    function addOptimisedLanguage(lang) {
+        const li = document.createElement("li");
+        li.appendChild(document.createTextNode(lang)); // Adding text by creating the textNode will prevent traversing of DOM thus it is an optimised approach.
+        document.querySelector(".language").appendChild(li);
+    }
+    addOptimisedLanguage("Golang");
+
+    //Editing
+    const secondLang = document.querySelector("li:nth-child(2)"); // The indexing is 1 based here.
+    // secondLang.innerHTML = "Mojo"
+    const newLi = document.createElement("li");
+    newLi.textContent = "Mojo";
+    secondLang.replaceWith(newLi);
+
+    //Remove
+    const lastlang = document.querySelector("li:last-child");
+    lastlang.remove();
+</script>
+</html>

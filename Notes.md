@@ -869,3 +869,42 @@
 
 2. `setAttribute()` can be used to set predefined and custom attributes. `setAttribute` is the the prefered method to set the attributes as `document.querySelector(".element").attribute1 = value1` first fetches the attribute1's value and then overwrites it but `document.querySelector(".element").setAttribute("attribute1","value1")` directly puts the value for attribute1 thus saving a trip of first fetch the attributes value and then overwrite it.
 3. `<parent>.appendChild()` method is used to append any child to the parent element.
+
+### Editng and Removing elements in DOM
+
+1. Editing: Consider the following JS code
+
+   ```javascript
+   /*
+      Consider the following HTML code:
+         <ul class = "language">
+            <li>Javascript</li>
+            <li>Python</li>
+            <li>Kotlin</li>
+            <li>Golang</li>
+         </ul>
+   */
+   //Editing
+   const secondLang = document.querySelector("li:nth-child(2)"); // The indexing is 1 based here. Thus <li>Python</li> will be there in secondLang
+   // secondLang.innerHTML = "Mojo"
+   const newLi = document.createElement("li");
+   newLi.textContent = "Mojo";
+   secondLang.replaceWith(newLi);
+   ```
+
+2. Removing - Consider the following JS code
+
+   ```javascript
+   /*
+      Consider the following HTML code:
+         <ul class = "language">
+            <li>Javascript</li>
+            <li>Python</li>
+            <li>Kotlin</li>
+            <li>Golang</li>
+         </ul>
+   */
+   //Remove
+   const lastlang = document.querySelector("li:last-child"); // <li>Golang</li>
+   lastlang.remove();
+   ```
