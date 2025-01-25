@@ -908,3 +908,169 @@
    const lastlang = document.querySelector("li:last-child"); // <li>Golang</li>
    lastlang.remove();
    ```
+
+### Events
+
+1. Browser events are invoked on some activity.
+2. Avoid injecting events directly in HTML code. This may cause problem when scaling the application.
+3. You can inject the events in React code as the react code is a scalable code.
+4. Injecting onclick event
+
+   ```javascript
+   //Consider the following HTML code
+   /*
+      <ul class = "animals">
+         <li id = "tiger">Tiger</li>
+         <li id = "lion">Lion</li>
+         <li id = "monkey">Monkey</li>
+         <li id = "zebra">Zebra</li>
+      </ul>
+   */
+   document.getElementById("lion").onclick = function () {
+     alert("Lion Clicked");
+   };
+   ```
+
+   1. The above approach works fine but is not good as onclick event here does not provide much info. We muct use `Event Listeners`.
+
+5. Event Listeners provide us the ability to propogate along with all types of events.
+6. `addEventListener("<event>", <callback function>, event-bubbling(false)/event-capturing(true))`
+
+   1. This is a very powerful method which can listen to many events.
+   2. Capturing click event using the addEventListener()
+
+      ```javascript
+      //Consider the following HTML code
+      /*
+      <ul class = "animals">
+         <li id = "tiger">Tiger</li>
+         <li id = "lion">Lion</li>
+         <li id = "monkey">Monkey</li>
+         <li id = "zebra">Zebra</li>
+      </ul>
+      */
+      document.getElementById("lion").addEventListener(
+        "click",
+        function (e) {
+          console.log(e.target); // e.target returns the html element from the which the event is triggered.
+        },
+        false
+      );
+      ```
+
+   3. We also get access to `event` object, denoted by `e`, which contains much information regarding the event.
+   4. We have mostly 2 types of events, Browser Events and Environment Events (like mouse position)
+
+7. Event Propogation
+
+   1. There are 2 contexts of event propogation
+      1. Event Bubbling (false)
+      2. Event Capturing (true)
+   2. Suppose you have an unordered list with some list elements inside it. You have applied an event listener both on the ul and li elements capturing click event. Since, the li elements are inside the ul element then the click on any li will also trigger the click event on ul.
+   3. **Event Bubbling**, the events will be captured from inner elements to the outer elements or from child to parent.
+
+      ```javascript
+      //Consider the following HTML code
+      /*
+      <ul id = "animals">
+         <li id = "tiger">Tiger</li>
+         <li id = "lion">Lion</li>
+         <li id = "monkey">Monkey</li>
+         <li id = "zebra">Zebra</li>
+      </ul>
+      */
+      document.getElementById("animals").addEventListener(
+        "click",
+        function (e) {
+          console.log("Animals clicked");
+        },
+        false // false denotes event bubbling
+      );
+
+      document.getElementById("lion").addEventListener(
+        "click",
+        function (e) {
+          console.log("Lion clicked");
+        },
+        false // false denotes event bubbling
+      );
+      ```
+
+      - Now, if the li element lion is clicked, the console will have output in the following sequence
+
+      ```
+      Lion clicked
+      Animals clicked
+      ```
+
+   4. **Event Capturing**, the events will be captured from outer elements to the inner elements or from parent to chiold elements.
+
+      ```javascript
+      //Consider the following HTML code
+      /*
+      <ul id = "animals">
+         <li id = "tiger">Tiger</li>
+         <li id = "lion">Lion</li>
+         <li id = "monkey">Monkey</li>
+         <li id = "zebra">Zebra</li>
+      </ul>
+      */
+      document.getElementById("animals").addEventListener(
+        "click",
+        function (e) {
+          console.log("Animals clicked");
+        },
+        true // true demotes event capturing
+      );
+
+      document.getElementById("lion").addEventListener(
+        "click",
+        function (e) {
+          console.log("Lion clicked");
+        },
+        true // true demotes event capturing
+      );
+      ```
+
+      - Now, if the li element lion is clicked, the console will have output in the following sequence
+
+      ```
+      Animals clicked
+      Lion clicked
+      ```
+
+8. Stopping the Propogation, sometimes you dont want to propogate the event to outer or inner elemnets then we need to use the method `stopPropogation()`
+
+   ```javascript
+   //Consider the following HTML code
+   /*
+      <ul id = "animals">
+         <li id = "tiger">Tiger</li>
+         <li id = "lion">Lion</li>
+         <li id = "monkey">Monkey</li>
+         <li id = "zebra">Zebra</li>
+      </ul>
+      */
+   document.getElementById("animals").addEventListener(
+     "click",
+     function (e) {
+       console.log("Animals clicked");
+     },
+     false // false denotes event bubbling
+   );
+
+   document.getElementById("lion").addEventListener(
+     "click",
+     function (e) {
+       console.log("Lion clicked");
+       e.stopPropogation(); // This will stop the proogation.
+     },
+     false // false denotes event bubbling
+   );
+   ```
+
+   - Now, if the li element lion is clicked, the console will have output in the following sequence
+
+     ```
+     Lion clicked
+     ```
