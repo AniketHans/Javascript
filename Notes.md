@@ -1093,3 +1093,9 @@
       4. The Register callback adds the callback in a task queue.
       5. Once the event is triggered, the corresponding callback is pushed to the callstack for execution.
       6. The fetch() api is a relatively new api added in JS. For this, a new high priority task queue is implemented in JS. All the fetch calls gets added to this high priority queue and when the fetch call returns, the callback is loaded to the callstack for further execution on priority.
+
+### XMLHTTPRequest
+
+1. XmlHttpRequest was widely used to do the API calls.
+2. It has some ready state that represents the state of the request.
+   ![XmlHttpRequest States](./resources/images/XMLReadyStates.png)

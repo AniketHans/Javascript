@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+<script>
+    // XML AJAX request
+    const xhr = new XMLHttpRequest()
+    xhr.open("GET","https://api.github.com/users/AniketHans") //open() does not gets called automically, we need to sue send()
+    // console.log(xhr.readyState) // 1, this tells the current state of the request
+    xhr.onreadystatechange = function(){   
+        console.log(xhr.readyState)
+        if (xhr.readyState===4){
+            console.log(this.responseText)
+        }
+    } // onreadystatechange is used to continously track the state of the request
+    xhr.send()
+</script>
+
+</html>
