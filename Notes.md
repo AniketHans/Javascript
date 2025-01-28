@@ -1074,3 +1074,22 @@
      ```
      Lion clicked
      ```
+
+### Async Code
+
+1. Javascript is by default synchronous and single threaded language.
+2. Blocking Code is the code that blocks the flow of the program like file read sync.
+3. Non Blocking code does not block the execution like file read async.
+4. Consider the following diagram:
+   ![Async flow](./resources/images/JSAsyncFlow.png)
+   1. The JS engine is the alone JS engine shown in the diagram. You will not get alone JS engine anywhere as it always come with an Execution env of browser or node JS. JS engine is made up of `Memory Heap` and `Call Stack`. JS engine is single threaded and sync.
+   2. We have Web api as well which we get from the browser. We can have Node env instead of Web api in the above diagram.
+   3. We also have a `Task queue` which helps in making the JS fast and async.
+   4. Along with the task queue, we have a `Promise/High Priority queue`.
+   5. Whats happening in the above diagram:
+      1. Whenever we have the program execution, a callstack is created. The call stack will have Global Execution context and then all the functions are loaded and once the top function execution is completed, the function is unloaded from the call stack.
+      2. Suppose, the top function has `setTimeout(<callback>, time)` code in it. This setTimeout is an async call. You will get the setTimeout call in any of the web or node apis. Hence, the call will gets transfered to the apis.
+      3. There is a Register Callback which registers all the callbacks related to events/setTimeouts etc. For eg. in above case, we have implemented `setTimeout(<callback>, time)` or we can also have a callback associated with a button event, the register callback will register these callbacks.
+      4. The Register callback adds the callback in a task queue.
+      5. Once the event is triggered, the corresponding callback is pushed to the callstack for execution.
+      6. The fetch() api is a relatively new api added in JS. For this, a new high priority task queue is implemented in JS. All the fetch calls gets added to this high priority queue and when the fetch call returns, the callback is loaded to the callstack for further execution on priority.
