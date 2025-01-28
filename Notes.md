@@ -1099,3 +1099,28 @@
 1. XmlHttpRequest was widely used to do the API calls.
 2. It has some ready state that represents the state of the request.
    ![XmlHttpRequest States](./resources/images/XMLReadyStates.png)
+
+### Promise
+
+1. Promise represents the eventual completion (or failure) of an asynchronous opeartion and its resulting value.
+2. It is used to perform tasks which take longer like Databse query, File read etc.
+3. Promises are completed in future.
+4. A Promise is in one of these states:
+   1. pending: initial state, neither fulfilled nor rejected.
+   2. fulfilled: meaning that the operation was completed successfully.
+   3. rejected: meaning that the operation failed.
+5. Promises are objects.
+6. Promises are created by creating a new instance of Promise object. The Promise object accepts a callback function.
+
+   ```javascript
+   /*
+      Promise(function(resolve, reject))
+   */
+   ```
+
+   1. When consuming the promise, we use then() and catch() and finally()
+   2. The resolve has a direct relation with then(). Whenever, we call the resolve method in Promise callback, it gets connected to the then() and tells the promise is completed. We can also pass values to resolve() that can be used in then() for consumption after the promise is resolved.
+   3. Similarly, reject is related to catch().
+   4. finally() will always be executed even if the promise if resolved ro rejected.
+
+7. We can use both `async await` and `then() catch()` to handle the promises. The diffrence is that we need to wrap the `async await` code explicitly in try catch so the resolve and reject return the values to try and catch block respectively.
