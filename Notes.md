@@ -1124,3 +1124,61 @@
    4. finally() will always be executed even if the promise if resolved ro rejected.
 
 7. We can use both `async await` and `then() catch()` to handle the promises. The diffrence is that we need to wrap the `async await` code explicitly in try catch so the resolve and reject return the values to try and catch block respectively.
+
+### fetch()
+
+1. fetch() puts the callback into the priority queue/maicrotask queue. Thus, the callbacks in priority queue are given preference over the one's in task queue.  
+   ![Async flow](./resources/images/JSAsyncFlow.png)
+2. Whenever, fetch() is called, there are 2 parts of the process.
+   ![Fetch Functionality](./resources/images/FetchFunctionality.png)
+   1. First part goes to reserve some memory space in form of variables. These variable are out of our reach as these are private.
+      1. One space is allocated for the response that we get from the fetch api. Lets name the variable as `data`
+      2. Second is an array named `onFulfilled`.
+      3. Third is an array named `onRejection`.
+   2. Second part uses either the web based api or node based api to perform a network request. The request can be fulfilled or errored. Any response, irrespective of its status code will go to the onFulfilled array. If there any error while making request or request got stuck, in that case the response will go to onRejection.
+   3. The `data` is initially empty. Once the network request is completed or rejected then either onFulfilled or onRejection will get fired respectively. Both the arrays contain functions that are responsible for fulfilling values in `data`.
+   4. After the `data` is fulfilled, it will populate the response const that we defined to capture the fetch resposne.
+
+### Object Oriented in JS
+
+1. Do we have classes in JS?
+   1. JS is basically a **Prototype based language** and classes are basically syntactic sugar over existing prototype based inheritance method.
+2. OOP
+   1. This is just a programming paradigm.
+3. Object
+   1. This is a collection of properties and methods.
+4. Object literal
+   1. The object that we make in JS is refered to as object literal. It contains properties and methods encapsulated init.
+      ```javascript
+      const obj = {
+        prop1: "value1",
+        method1: function () {
+          // functionality
+        },
+      };
+      ```
+   2. The object literal is the base unit in JS. Like we have class as the base unit of OOP in other languages
+5. Constructor Function
+
+   1. The `new` keyword that we used to declare a new instance of the object is basically using the constructor function to create the object.
+   2. The new keyword allows you to create a new instance of the object.
+   3. The following code can be used to create a new object instance
+
+      ```javascript
+      function User(username, age, email) {
+        this.username = username;
+        this.age = age;
+        this.email = email;
+
+        this.greetings = function () {
+          console.log(`Hello!! ${this.username}`);
+        };
+
+        return this; // We can also skip this explicit return this as same also happens implicitly.
+      }
+
+      const userOne = new User("AH", 25, "a@b.com");
+      console.log(userOne); //  User { username: 'AH', age: 25, email: 'a@b.com', greetings: [Function (anonymous)] }
+      console.log(userOne.constructor); // [Function: User], .constructor of an object actually contains a reference of the object itself.
+      console.log(this); // {}
+      ```
