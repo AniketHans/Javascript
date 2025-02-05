@@ -1182,3 +1182,117 @@
       console.log(userOne.constructor); // [Function: User], .constructor of an object actually contains a reference of the object itself.
       console.log(this); // {}
       ```
+
+### Prototype
+
+1. JS has a prototypal behaviour.
+2. If we ask for a property/method from an object, JS first checks if the property/method is present directly under the object. If not found, then it searches for the same in its parents, grandparents and other ancestors until it gets the property/method or null. This is also known as **Prototypal Inheritance**.
+3. Everything in JS is an object. Thus, we can say everything in JS is a prototype of Object. Whatever properties an object has, the descendents like arrays, strings etc also inherits those properties. We can override the properties in descendants as well.
+   ![Arrays and string are derived from Object](./resources/images/Prototype.png)
+4. Objects parent is null. Thus, object's prototype is null.
+5. For an object obj, obj's _this_ == obj.prototype
+6. Injecting properties in prototype,
+
+   ```javascript
+   function createUser(username, score) {
+     this.username = username;
+     this.score = score;
+   }
+   createUser.prototype.incrementScore = function () {
+     this.score++;
+   };
+
+   const user1 = createUser("Haha", 20);
+   const user2 = createUser("Hihi", 90);
+   // user1.incrementScore(); // TypeError: Cannot read properties of undefined (reading 'incrementScore')
+   // console.log(user1);
+
+   //We have added new properties in createUser's prototype, to use them in the created objects, we need to use new keyword.
+   const user3 = new createUser("Haha", 20);
+   user3.incrementScore();
+   console.log(user3); // createUser { username: 'Haha', score: 21 }
+   ```
+
+   - Here's what happens behind the scenes when the new keyword is used:
+     1. A new object is created: The new keyword initiates the creation of a new JavaScript object.
+     2. A prototype is linked: The newly created object gets linked to the prototype property of the constructor function. This means that it has access to properties and methods defined on the constructor's prototype.
+        Basically, when we did `createUser.prototype.incrementScore = function () {this.score++;};`, the function still didn't get attached to prototype. Once we used the _new_ like `const user3 = new createUser("Haha", 20);`, then an object is created and the prototype with the new property increamentScore got injected in it and then it saw that we have to create a function and then attach the created object's prototype to the function object.
+     3. The constructor is called: The constructor function is called with the specified arguments and this is bound to the newly created object. If no explicit return value is specified from the constructor, JavaScript assumes this, the newly created object, to be the intended return value.
+        Once the constructor is called, all the properties associated using _this_, like this.username and this.score are attached to the object (function object in this case).
+     4. The new object is returned: After the constructor function has been called, if it doesn't return a non-primitive value (object, array, function, etc.), the newly created object is returned.
+
+7. `__proto__`
+
+   1. This can be used to inherit properties of one object into another
+
+   ```javascript
+   const obj1 = {
+     prop1: "value1",
+   };
+
+   const obj2 = {
+     prop2: "value2",
+   };
+   const obj3 = {
+     prop3: "value3",
+   };
+
+   // inherting proerties of obj3 in obj4, we can use proto property.
+   const obj4 = {
+     prop4: "value4",
+     __proto__: obj3,
+   };
+   console.log(obj4.prop4); // value4
+   console.log(obj4.prop3); // value3
+   console.log(obj4.prop2); // undefined, obj2 is not inherted in obj4
+
+   // inherting properties of obj1 in obj2.
+   obj2.__proto__ = obj1;
+   console.log(obj2.prop2); // value2
+   console.log(obj2.prop1); // value1
+   ```
+
+### call
+
+1. Suppose we have the following scenario,
+
+   ```javascript
+   function setUsername(username) {
+     console.log("called");
+     this.username = username;
+   }
+
+   function createUser(username, email, password) {
+     setUsername(username);
+     this.email = email;
+     this.password = password;
+   }
+
+   const user1 = new createUser("user1", "a@b.com", "123");
+   console.log(user1); // createUser { email: 'a@b.com', password: '123' }
+   ```
+
+   - Here, the callstack will be like,
+     1. setUsername() <-- top (stack top)
+     2. createUser()
+     3. Global Execution context
+   - Now, as soon as the setUsername() is called and it sets the `this.username = username` and completes its execution, it get removed from callstack and hence its execution content where we have the this.username value set get removed. Thus, the this.username value is not bubbled up to the createUser().
+   - call() is used to hold the reference of the function that is moving out of the callstack. We give our `this` and the function uses the passed `this` instead of its own `this`.
+
+     ```javascript
+     function setUsername(username) {
+       console.log("called");
+       this.username = username;
+     }
+
+     function createUser(username, email, password) {
+       setUsername.call(this, username);
+       this.email = email;
+       this.password = password;
+     }
+
+     const user1 = new createUser("user1", "a@b.com", "123");
+     console.log(user1); // createUser { username: 'user1', email: 'a@b.com', password: '123' }
+     ```
+
+2. Thus, we can say call is used to pass the current execution context to another function.
