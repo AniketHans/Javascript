@@ -1296,3 +1296,82 @@
      ```
 
 2. Thus, we can say call is used to pass the current execution context to another function.
+
+### bind
+
+1. Suppose, you have the following code
+
+   ```html
+   <!DOCTYPE html>
+   <html lang="en">
+     <head>
+       <meta charset="UTF-8" />
+       <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+       <title>React</title>
+     </head>
+     <body>
+       <button>Click me</button>
+     </body>
+     <script>
+       class React {
+         constructor() {
+           this.server = "http://localhost:3000";
+           this.library = "React";
+
+           document
+             .querySelector("button")
+             .addEventListener("click", this.handleClick);
+         }
+         handleClick() {
+           console.log("Button Clicked!!!");
+           console.log(this);
+           console.log(this.server);
+         }
+       }
+
+       const app = new React();
+     </script>
+   </html>
+   ```
+
+   - Here, once the button is clicked we get the following console output.
+     ![Non bind() console output](./resources/images/NonBindConsoleLog.png)
+   - The handleClick will by take the context of the button only. It will not have the access of the app/React class context. Thus, this.server will return undefined as handleClick will not have the access here.
+
+2. To make the handleClick also get the access of React class/app, we need to bind the app context with the one that handleClick refers. bind() will not override the context but it kind of merges the React class/app context and handleClick's context.
+
+   ```html
+   <!DOCTYPE html>
+   <html lang="en">
+     <head>
+       <meta charset="UTF-8" />
+       <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+       <title>React</title>
+     </head>
+     <body>
+       <button>Click me</button>
+     </body>
+     <script>
+       class React {
+         constructor() {
+           this.server = "http://localhost:3000";
+           this.library = "React";
+
+           document
+             .querySelector("button")
+             .addEventListener("click", this.handleClick.bind(this));
+         }
+         handleClick() {
+           console.log("Button Clicked!!!");
+           console.log(this);
+           console.log(this.server);
+         }
+       }
+
+       const app = new React();
+     </script>
+   </html>
+   ```
+
+   - Output:
+     ![Bind Console Log](./resources/images/BindConsoleLog.png)
