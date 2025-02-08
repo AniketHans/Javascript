@@ -1375,3 +1375,34 @@
 
    - Output:
      ![Bind Console Log](./resources/images/BindConsoleLog.png)
+
+### Object.getOwnPropertyDescriptor()
+
+1. An object is a collection of properties and its values.
+   ```javascript
+   const obj = {
+     prop1: value1,
+   };
+   ```
+2. `Object.getOwnPropertyDescriptor(<object>,<property>)` returns some hidden properties of the object property you asked for.
+
+   ```javascript
+   const obj = {
+     username: "AH",
+     age: 25,
+   };
+
+   console.log(Object.getOwnPropertyDescriptor(obj, "username"));
+   // { value: 'AH', writable: true, enumerable: true, configurable: true }
+   ```
+
+3. We can alter the properties by using the `Object.defineProperty()` method.
+
+   ```javascript
+   Object.defineProperty(obj, "username", {
+     writable: false,
+     enumerable: false,
+   });
+   console.log(Object.getOwnPropertyDescriptor(obj, "username"));
+   // { value: 'AH', writable: false, enumerable: false, configurable: true }
+   ```
