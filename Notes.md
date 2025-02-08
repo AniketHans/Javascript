@@ -1406,3 +1406,32 @@
    console.log(Object.getOwnPropertyDescriptor(obj, "username"));
    // { value: 'AH', writable: false, enumerable: false, configurable: true }
    ```
+
+### Getters and Setters
+
+1. Getters and Setters are all present in classes.
+2. These can be used to get and set the properties of a class/object in a custom way.
+3. These are always used in pairs, it means if a property has a getter associated with it then it is mandatory to have a setter as well.
+
+   ```javascript
+   class User {
+     constructor(email, password) {
+       this.email = email;
+       this.password = password;
+     }
+
+     get password() {
+       return this._password.toUpperCase();
+     }
+
+     set password(value) {
+       this._password = `prefix${value}suffix`;
+     }
+   }
+
+   const user1 = new User("a@b.com", "abc");
+   console.log(user1.password); // PREFIXABCSUFFIX
+   ```
+
+   - Here, the value that we assigned to the password, `this.password = password`, will go to the setter, set Password(value), where value === password and then finally the password value is set to the `this._password` which is returned from the getter.
+   - Note, if we have used `this.password` instead of `this._password` in setter, then if will lead to an undefinite recursion as first `this.password` in contructor will try to assign the value of password by sending it to the setter. In setter, it will again try to assign value to `this.password`, if we had used `this.password` instead of `this._password` which will again call the setter thus the setter will be called indefinitely as assigning any value directly to the `this.password` calls setter.
